@@ -2,7 +2,7 @@ name: documenso-production
 
 services:
   database:
-    image: postgres:17
+    image: postgres:18
     environment:
       - POSTGRES_USER=${POSTGRES_USER:?err}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?err}
