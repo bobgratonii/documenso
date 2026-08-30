@@ -2,7 +2,7 @@ name: documenso-development
 
 services:
   database:
-    image: postgres:15
+    image: postgres:17
     container_name: database
     volumes:
       - documenso_database:/var/lib/postgresql/data

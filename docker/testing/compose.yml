@@ -2,7 +2,7 @@ name: documenso-test
 
 services:
   database:
-    image: postgres:15
+    image: postgres:17
     environment:
       - POSTGRES_USER=documenso
       - POSTGRES_PASSWORD=password
