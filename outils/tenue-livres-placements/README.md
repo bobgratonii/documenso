@@ -8,6 +8,14 @@ sont produits en CAD et en USD.
 La seule communication externe est la requête de taux de change à l'API Valet de la
 Banque du Canada, qui ne contient que des dates. Aucune donnée client ne quitte le poste.
 
+## Deux façons de l'utiliser
+
+- **Sans rien installer** : la macro Excel du dossier `excel-vba/`. Voir `excel-vba/LISEZMOI.md`.
+  C'est la version à utiliser sur un poste où Python ne peut pas être installé.
+- **Avec Python** : le script `calcul_placements.py`, décrit ci-dessous.
+
+Les deux appliquent les mêmes règles et partagent les mêmes cas de test.
+
 ## Fichiers
 
 | Fichier | Rôle |
@@ -18,6 +26,8 @@ Banque du Canada, qui ne contient que des dates. Aucune donnée client ne quitte
 | `Gabarit_Client_Exemple.xlsx` | Démo : gabarit rempli de données fictives |
 | `Sortie_Client_Exemple_données_fictives_2025.xlsx` | Démo : résultat du calcul |
 | `taux_fictifs_demo.csv` | Taux de change inventés pour la démo, à ne jamais utiliser sur un vrai dossier |
+| `excel-vba/TenueLivresPlacements.bas` | Le même moteur en macro Excel, avec ses tests intégrés |
+| `excel-vba/LISEZMOI.md` | Installation et utilisation de la macro |
 
 ## Installation
 
