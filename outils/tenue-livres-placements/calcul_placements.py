@@ -1115,6 +1115,43 @@ def ecrire_sortie(res: Resultat, chemin: Path) -> None:
                   {3: FMT_MONTANT, 4: FMT_MONTANT, 5: FMT_MONTANT, 6: FMT_MONTANT}, ligne_depart=ligne + 1)
     ws.freeze_panes = "A2"
 
+    # --- Par titre -----------------------------------------------------------------------
+    ws = wb.create_sheet("Par titre", 2)
+    ws["A1"] = f"Revenus, retenues et gains par placement pour {annee} (CAD et USD)"
+    ws["A1"].font = Font(bold=True)
+    par_titre: dict[str, dict[str, float]] = defaultdict(lambda: defaultdict(float))
+    for x in revs:
+        cle = {"Dividende": "div", "Intérêt": "int", "Remboursement de capital": "rc"}[x.categorie]
+        par_titre[x.titre][cle + "_usd"] += x.brut_usd
+        par_titre[x.titre][cle + "_cad"] += x.brut_cad
+        par_titre[x.titre]["ret_usd"] += x.retenue_usd
+        par_titre[x.titre]["ret_cad"] += x.retenue_cad
+    for x in disp:
+        par_titre[x.titre]["gain_usd"] += x.gain_usd
+        par_titre[x.titre]["gain_cad"] += x.gain_cad
+        par_titre[x.titre]["refusee_cad"] += x.perte_refusee_cad
+        par_titre[x.titre]["nb_disp"] += 1
+    lignes = []
+    for titre in sorted(par_titre):
+        v = par_titre[titre]
+        lignes.append([titre, res.descriptions.get(titre, ""),
+                       _r(v["div_cad"]), _r(v["div_usd"]), _r(v["int_cad"]), _r(v["int_usd"]),
+                       _r(v["rc_cad"]), _r(v["rc_usd"]), _r(v["ret_cad"]), _r(v["ret_usd"]),
+                       int(v["nb_disp"]), _r(v["gain_cad"]), _r(v["gain_usd"]), _r(v["refusee_cad"])])
+    if lignes:
+        total = ["Total", ""] + [_r(sum(l[j] or 0 for l in lignes)) for j in range(2, 14)]
+        total[10] = int(total[10])
+        lignes.append(total)
+    _ecrire_table(ws, ["Titre", "Description", "Dividendes CAD", "Dividendes USD", "Intérêts CAD", "Intérêts USD",
+                       "Remb. de capital CAD", "Remb. de capital USD", "Impôt étranger retenu CAD",
+                       "Impôt étranger retenu USD", "Nb de dispositions", "Gain (perte) en capital CAD",
+                       "Gain (perte) USD (indicatif)", "Perte apparente refusée CAD"],
+                  lignes, {j: FMT_MONTANT for j in range(3, 15) if j != 11}, ligne_depart=3, largeurs={2: 35})
+    if lignes:
+        for j in range(1, 15):
+            ws.cell(row=len(lignes) + 3, column=j).font = Font(bold=True)
+    ws.freeze_panes = "C4"
+
     # --- Frais -----------------------------------------------------------------------
     ws = wb.create_sheet("Frais")
     lignes = [[x.date, x.compte, _r(x.brut_usd), round(x.taux, 4), _r(x.brut_cad), x.note, x.origine] for x in frais]

@@ -91,6 +91,7 @@ début du suivi entrent par une ligne SOLDE_OUVERTURE avec leur PBR CAD connu.
 | --- | --- |
 | Sommaire | Totaux de l'année en CAD et en USD prêts pour l'annexe 3, l'annexe G, le T2209 et le TP-772 |
 | Alertes | Erreurs (opération rejetée), avertissements (à vérifier), informations |
+| Par titre | Dividendes, intérêts, retenues et gains regroupés par placement, en CAD et en USD |
 | Dispositions | Chaque vente : produit, PBR, gain avant et après perte apparente, en CAD et en USD |
 | Revenus | Dividendes, intérêts et remboursements de capital avec retenue, plus sous-totaux par titre |
 | Frais | Honoraires et frais, déductibilité à évaluer |
