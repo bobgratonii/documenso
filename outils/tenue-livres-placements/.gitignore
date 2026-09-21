@@ -1,0 +1,5 @@
+__pycache__/
+.pytest_cache/
+taux_bdc_cache.csv
+Sortie_*.xlsx
+!Sortie_Client_Exemple_données_fictives_2025.xlsx
